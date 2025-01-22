@@ -43,7 +43,6 @@ public class HTLMReporter {
                 reportPath = System.getProperty("ReportPath");
             } else {
                 reportPath = System.getProperty(USER_DIRECTORY) + fileSeparator + "Results" + fileSeparator + "Report.html";
-                System.out.println("Default Report Path: " + reportPath);
             }
             // Ensure Results directory exists
             File resultsDir = new File(System.getProperty(USER_DIRECTORY) + fileSeparator + "Results");
