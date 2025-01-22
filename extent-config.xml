@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+    <configuration>
+        <!-- report theme -->
+        <!-- standard, dark -->
+        <theme>standard</theme>
+
+        <!-- document encoding -->
+        <!-- defaults to UTF-8 -->
+        <encoding>UTF-8</encoding>
+
+        <!-- protocol for script and stylesheets -->
+        <!-- defaults to https -->
+        <protocol>https</protocol>
+
+        <!-- title of the document -->
+        <documentTitle>Extent</documentTitle>
+
+        <!-- report name - displayed at top-nav -->
+        <reportName>Automation Report</reportName>
+
+        <!-- location of charts in the test view -->
+        <!-- top, bottom -->
+        <testViewChartLocation>bottom</testViewChartLocation>
+
+        <!-- custom javascript -->
+        <scripts>
+            <![CDATA[
+                $('.brand-logo').text('KGL Assignment');
+                $(document).ready(function() {
+                <!--  Highlight passed tests in green -->
+                    $(".test-status.pass").css("background-color", "#d4edda");
+                    $(".test-status.pass").css("color", "#155724");
+
+                    // Highlight failed tests in red
+                    $(".test-status.fail").css("background-color", "#f8d7da");
+                    $(".test-status.fail").css("color", "#721c24");
+
+                    // Smooth scrolling to sections
+                    $(".nav-link").on("click", function(event) {
+                        event.preventDefault();
+                        $('html, body').animate({
+                            scrollTop: $($.attr(this, "href")).offset().top
+                        }, 500);
+                    });
+
+                    // Tooltip on hover for detailed information
+                    $("[data-toggle='tooltip']").tooltip();
+                });
+            ]]>
+        </scripts>
+
+        <!-- custom styles -->
+        <styles>
+            <![CDATA[
+                /* Custom font for headings */
+                .test-title, .category-name {
+                    font-family: 'Arial', sans-serif;
+                    font-weight: bold;
+                }
+
+                /* Passed tests styling */
+                .test-status.pass {
+                    border: 1px solid #28a745;
+                    border-radius: 5px;
+                }
+
+                /* Failed tests styling */
+                .test-status.fail {
+                    border: 1px solid #dc3545;
+                    border-radius: 5px;
+                }
+
+                /* Test container */
+                .test-container {
+                    margin: 15px 0;
+                    padding: 10px;
+                    background-color: #f8f9fa;
+                    border-radius: 5px;
+                }
+
+                /* Custom header */
+                .report-name {
+                    color: #007bff;
+                    text-shadow: 1px 1px 2px #0056b3;
+                }
+
+                /* Custom footer */
+                .footer {
+                    font-size: 12px;
+                    text-align: center;
+                    color: #6c757d;
+                    margin-top: 20px;
+                }
+            ]]>
+        </styles>
+    </configuration>
+</extentreports>
