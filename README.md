@@ -13,21 +13,20 @@ Maven:
 
 Browser and WebDriver:
 - This framework currently supports Google Chrome.
+
 **Important**: Ensure that the ChromeDriver version matches the installed Google Chrome version. If there is a mismatch, download the correct version from the ChromeDriver download page.
 
 Dependencies:
-- All required dependencies are defined in the pom.xml file for Maven projects. Run the following command to download them:
+- All required dependencies are defined in the pom.xml file for Maven projects.
 
 **Important Notes**
 
 Keep ChromeDriver Updated:
 - Ensure that the ChromeDriver version matches the installed version of Google Chrome. Mismatches will result in test failures.
 
-Property Configuration:
-- Configure the application.properties file to update browser type and driver paths.
-
 Dependencies:
 - Ensure all required dependencies are downloaded via Maven before running the tests.
+
 Extensibility:
 - This framework can be extended to support additional browsers and functionalities by updating the setUpDriver method and adding corresponding libraries.
 
