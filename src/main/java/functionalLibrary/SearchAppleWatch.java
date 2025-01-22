@@ -32,32 +32,22 @@ public class SearchAppleWatch {
      *   <li>Waits for the "Apple Watch" category to load and clicks on it.</li>
      *   <li>Waits for the subcategory to load and clicks on it.</li>
      *   <li>Waits for the specified Apple Watch product (dynamic) to load and clicks on it.</li>
-     *   <li>Performs a right-click action on the product details element.</li>
-     *   <li>Uses {@code JavascriptExecutor} as a fallback to perform the click if {@code Actions} fails.</li>
+     *   <li>Uses {@code JavascriptExecutor} as a facilitator to perform the hover by {@code Actions}.</li>
      * </ul>
      * </p>
-     *
      * <p>The product to be selected is determined by the {@code watchProduct} variable, which dynamically updates
      * the product XPath.</p>
      */
     public void selectAppleWatch() {
-        // Wait for and click the Apple Watch category
         genericMethods.waitForElement(driver, appleWatchCategory, "Apple Watch Category");
         genericMethods.clickOn(driver, appleWatchCategory,"Apple Watch Category");
-
-        // Wait for and click the specified Apple Watch product
         genericMethods.waitForElement(driver, appleWatchProduct, "Apple Watch Product");
         genericMethods.clickOn(driver, appleWatchProduct,"Apple Watch Product");
-
-        // Right-click on the product details element
         try {
             WebElement element = genericMethods.waitForElement(driver, appleWatchDetails, "Apple Watch Details");
-           /* Actions action = new Actions(driver);
-            action.contextClick(element).perform();*/
-            // Add JavaScriptExecutor as a fallback if Action class doesn't work
-            /*JavascriptExecutor js = (JavascriptExecutor) driver;
+            JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("arguments[0].scrollIntoView(true);",element);
-            Thread.sleep(1000);*/
+            Thread.sleep(1000);
             Actions action = new Actions(driver);
             action.moveToElement(element).build().perform();
             Thread.sleep(2000);
@@ -65,7 +55,6 @@ public class SearchAppleWatch {
             HTLMReporter.reportLog(driver,"Click on Apple Watch Details web element : NOK","["+appleWatchDetails+"]--> Element not clickable", Status.INFO);
         }
     }
-
     /**
      * Validates the "Quick Look" feature of the selected Apple Watch product.
      *

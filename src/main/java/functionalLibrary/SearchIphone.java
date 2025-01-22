@@ -118,10 +118,14 @@ public class SearchIphone {
                 driver.switchTo().window(handle);
         }
         String newTabTitle = driver.getTitle();
-        if(newTabTitle.contains(linkName))
-            HTLMReporter.reportLog(driver,"Tab verified","["+newTabTitle+"]--> Tab verified", Status.PASS);
-        else
-            HTLMReporter.reportLog(driver,"Tab Verification : NOK","[Actual: "+newTabTitle+", Expected: "+linkName+"]--> Tab Verification : NOK",
+        if(null!=newTabTitle){
+            if(newTabTitle.contains(linkName))
+                HTLMReporter.reportLog(driver,"Tab verified","["+newTabTitle+"]--> Tab verified", Status.PASS);
+            else
+                HTLMReporter.reportLog(driver,"Tab Verification : NOK","[Actual: "+newTabTitle+", Expected: "+linkName+"]--> Tab Verification : NOK",
+                        Status.FAIL);
+        }else
+            HTLMReporter.reportLog(driver,"Tab Verification : NOK","[Actual: No new Tab, Expected: "+linkName+"]--> Tab Verification : NOK",
                     Status.FAIL);
         genericMethods.waitForElement(driver,appleStoreXpath,"Visit Apple Store");
         genericMethods.clickOn(driver,appleStoreXpath,"Visit Apple Store");
