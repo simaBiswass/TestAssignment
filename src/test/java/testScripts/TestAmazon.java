@@ -41,7 +41,7 @@ public class TestAmazon extends BaseUtil {
     @Test(priority = 2)
     public void validationNewWindow(){
         reporter.startTestCase("Validate new window","Check if new window opens for Iphone 13 128 GB variant");
-        searchIphone.searchVariant("iphone 13 128 GB");
+        searchIphone.searchVariant(" 128 GB");
         searchIphone.validateNewWindow();
     }
 

@@ -72,7 +72,7 @@ public class BaseUtil {
                 System.setProperty("webdriver.chrome.driver",properties.getProperty("ChromeDriverPath"));
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--start-maximized");
-                options.addArguments("--incognito");
+                //options.addArguments("--incognito");
                 driver = new ChromeDriver(options);
                 break;
             default:

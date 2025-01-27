@@ -3,10 +3,7 @@ package util;
 import com.aventstack.extentreports.Status;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
@@ -18,6 +15,7 @@ public class GenericMethods {
     private static final Logger log = LogManager.getLogger(GenericMethods.class);
     Properties properties = SetProperties.getProperties();
     int secs = Integer.parseInt(properties.getProperty("wait"));
+    int longerSecs = Integer.parseInt(properties.getProperty("longWait"));
 
     /**
      * Waits for a web element to become clickable and clicks on it.
@@ -85,6 +83,29 @@ public class GenericMethods {
         return element;
     }
     /**
+     * Waits for longer a web element to become visible on the page.
+     *
+     * <p>This method waits for the specified element, located by the given {@code By} locator,
+     * to become visible. If the element does not become visible within the specified timeout,
+     * the error is logged using {@code HTLMReporter}.</p>
+     *
+     * @param driver the WebDriver instance used to interact with the browser
+     * @param by the locator used to identify the web element
+     * @param elementName the name of the element, used for logging purposes
+     * @return the visible web element, or {@code null} if not found
+     */
+    public WebElement waitLongerForElement(WebDriver driver, By by, String elementName){
+        WebElement element = null;
+        try{
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(longerSecs));
+            element=wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        }catch (Exception ex){
+            log.error("wait error: ", ex);
+            HTLMReporter.reportLog(driver,"Wait for "+elementName+" web element : NOK","["+by+"]--> Element not visible", Status.INFO);
+        }
+        return element;
+    }
+    /**
      * Waits for a list of web elements to become visible on the page.
      *
      * <p>This method waits for all elements, located by the given {@code By} locator,
@@ -108,6 +129,7 @@ public class GenericMethods {
         }
         return list;
     }
+
     /**
      * Selects a dropdown option by its visible text.
      *
@@ -167,6 +189,29 @@ public class GenericMethods {
             WebElement element = driver.findElement(by);
             Thread.sleep(500);
             element.sendKeys(value);
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            log.error("Send Keys error: ", e);
+            HTLMReporter.reportLog(driver,"Send text to "+value+" web element : NOK","["+by+"]--> Text box not editable", Status.INFO);
+        }
+    }
+    /**
+     * Sends text input to a web element.
+     *
+     * <p>This method finds the element located by the given {@code By} locator and
+     * sends the specified text to it. If the action fails, the error is logged using
+     * {@code HTLMReporter}.</p>
+     *
+     * @param driver the WebDriver instance used to interact with the browser
+     * @param by the locator used to identify the text input element
+     * @param value the Key to send to the input field
+     */
+    public void sendKeys(WebDriver driver, By by, Keys value){
+        try {
+            WebElement element = driver.findElement(by);
+            Thread.sleep(500);
+            element.sendKeys(value);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             log.error("Send Keys error: ", e);
             HTLMReporter.reportLog(driver,"Send text to "+value+" web element : NOK","["+by+"]--> Text box not editable", Status.INFO);

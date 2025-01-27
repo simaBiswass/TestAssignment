@@ -2,6 +2,7 @@ package functionalLibrary;
 
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import util.BaseUtil;
@@ -22,8 +23,8 @@ public class SearchIphone {
     private final By searchBox = By.id("twotabsearchtextbox");
     private final By suggestionsList = By.xpath("//*[@class='s-suggestion-container']/*[@role='button']");
     private final By appleStoreXpath = By.xpath("//a[contains(text(),'Visit the Apple Store')]");
-    private final By searchDropdown = By.id("searchDropdownBox");
-    private final By suggestionContainer = By.xpath("//*[@class='s-suggestion-container']/*[@role='button']");
+    private final By searchDropdown = By.xpath("//*[@class='nav-icon']");
+    //private final By suggestionContainer = By.xpath("//*[@class='s-suggestion-container']/*[@role='button']");
     private final By productLinks = By.xpath("//*[@aria-label[contains(.,'iPhone')]]//ancestor::h2");
 
     /**
@@ -42,6 +43,8 @@ public class SearchIphone {
      * @param product the name of the product to search for (e.g., "iPhone 13").
      */
     public void searchProductInDepartment(String department, String product) {
+        genericMethods.waitLongerForElement(driver,searchDropdown,"Select Category");
+        //genericMethods.clickOn(driver,searchDropdown,"Select Category");
         genericMethods.waitForElements(driver, options, "List of departments");
         genericMethods.selectDropdown(driver, department);
         genericMethods.clickOn(driver, searchBox,"Search Box");
@@ -83,9 +86,9 @@ public class SearchIphone {
      * @param searchText the text to enter into the search dropdown (e.g., "iPhone 13 128 GB").
      */
     public void searchVariant(String searchText) {
-        genericMethods.sendKeys(driver, searchDropdown, searchText);
-        List<WebElement> suggestions = genericMethods.waitForElements(driver, suggestionContainer, "Suggestions List");
-        genericMethods.clickOn(driver, suggestions.get(0),"Top result");
+        genericMethods.sendKeys(driver, searchBox, searchText);
+        genericMethods.waitForElement(driver,searchBox, "Search Box");
+        genericMethods.sendKeys(driver, searchBox, Keys.ENTER);
         List<WebElement> products = genericMethods.waitForElements(driver, productLinks, "Product Links");
         linkName = products.get(0).getText(); // Save the product link text
         genericMethods.clickOn(driver, products.get(0),searchText+" product");
