@@ -23,8 +23,6 @@ public class SearchIphone {
     private final By searchBox = By.id("twotabsearchtextbox");
     private final By suggestionsList = By.xpath("//*[@class='s-suggestion-container']/*[@role='button']");
     private final By appleStoreXpath = By.xpath("//a[contains(text(),'Visit the Apple Store')]");
-    private final By searchDropdown = By.xpath("//*[@class='nav-icon']");
-    //private final By suggestionContainer = By.xpath("//*[@class='s-suggestion-container']/*[@role='button']");
     private final By productLinks = By.xpath("//*[@aria-label[contains(.,'iPhone')]]//ancestor::h2");
 
     /**
@@ -43,9 +41,7 @@ public class SearchIphone {
      * @param product the name of the product to search for (e.g., "iPhone 13").
      */
     public void searchProductInDepartment(String department, String product) {
-        genericMethods.waitLongerForElement(driver,searchDropdown,"Select Category");
-        //genericMethods.clickOn(driver,searchDropdown,"Select Category");
-        genericMethods.waitForElements(driver, options, "List of departments");
+        genericMethods.waitLongerForElement(driver,searchBox,"Select Category");
         genericMethods.selectDropdown(driver, department);
         genericMethods.clickOn(driver, searchBox,"Search Box");
         genericMethods.sendKeys(driver, searchBox, product);
